@@ -40,6 +40,7 @@ export default class LoginScreen extends Component{
           body: formBody
         })
           .then((response) => {
+           // Alert.alert(response.toString());
               if(response.status==200){
             this.setState({isLoginSuccess:true});
           }else{
@@ -48,9 +49,9 @@ export default class LoginScreen extends Component{
           response.json()})
           .then((responseJson) => {
               if(this.state.isLoginSuccess){
-       Alert.alert(JSON.stringify(responseJson));
+      // Alert.alert(responseJson);
        var {navigate} = this.props.navigation;
-       navigate('DashBoardScreen');
+       navigate('DashBoardScreen', { Bearer: responseJson });
     }else{
        Alert.alert("Login failed");
     }
@@ -63,7 +64,7 @@ export default class LoginScreen extends Component{
 render() {
     var {navigate} = this.props.navigation;
     return (
- <View style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
     <ImageBackground source={{uri:'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yI9FRzo/animated-collapsing-crumbling-wall-of-white-boxes-with-reflective-surface-2-transparent-background-alpha-channel-embedded-with-hd-png-file-good-for-video-transition-or-similar-effects-very-easy-to-put-any-video-or-image-in-the-background_v1ie0fg7__S0000.jpg'}} style={styles.container}>
         <View style={styles.formTitleContainer}>
         <Text style={styles.textHeader}>ggk tech</Text>
@@ -94,12 +95,12 @@ render() {
         />
         <Text style={styles.textHeading} onPress={() => navigate('ForgotPassWordPatientID')}> FORGOT PASSWORD? </Text>
         
-        <TouchableHighlight style={ styles.touchableHightlight } underlayColor={'transparent'} onPress={()=>this.handlePress()}>
+        <TouchableHighlight style={ styles.touchableHightlight } underlayColor={'transparent'} onPress={()=> navigate('DashBoardScreen', {})}>
            <Text style= {[ styles.button, styles.buttonLight ]}>   Login   </Text>
         </TouchableHighlight>
         </View>
     </ImageBackground>
-</View>
+</KeyboardAvoidingView >
     );
 }
 }
